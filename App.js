@@ -1,17 +1,17 @@
-import * as Expo from 'expo';
-import { Constants } from 'expo';
-import React from 'react';
-import { Provider } from 'react-redux';
+import * as Expo from "expo";
 
-import { createStackNavigator } from 'react-navigation';
+import React from "react";
+import { Provider } from "react-redux";
 
-import store from './ReduxStore';
+import { createStackNavigator } from "react-navigation";
 
-import MainPage from './components/MainPage';
-import EmployeeLogin from './components/EmployeeLogin';
-import AdminLogin from './components/AdminLogin';
-import Report from './components/Report';
-import OldReport from './components/OldReport';
+import store from "./ReduxStore";
+
+import MainPage from "./components/MainPage";
+import EmployeeLogin from "./components/EmployeeLogin";
+import AdminLogin from "./components/AdminLogin";
+import Report from "./components/Report";
+import OldReport from "./components/OldReport";
 
 const MainNavigator = createStackNavigator({
   MainPage: { screen: MainPage },
@@ -19,38 +19,38 @@ const MainNavigator = createStackNavigator({
   EmployeeLogin: { screen: EmployeeLogin },
   Fields: { screen: Report },
   Report: { screen: Report },
-  OldReport: { screen: OldReport }
+  OldReport: { screen: OldReport },
 });
 
 export default class App extends React.Component {
-
   constructor() {
     super();
     this.state = {
-      isReady: false
+      isReady: false,
     };
   }
 
   componentWillMount() {
     this.loadFonts();
-   }
+  }
 
   async loadFonts() {
     await Expo.Font.loadAsync({
-      Arial: require('native-base/Fonts/arial.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
+      // Arial: require('native-base/Fonts/arial.ttf'),
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
     });
     this.setState({ isReady: true });
   }
 
   render() {
-      if (!this.state.isReady) {
-        return <Expo.AppLoading />;
-      }
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
     return (
       <Provider store={store}>
-          <MainNavigator />
+        <MainNavigator />
       </Provider>
     );
   }
